@@ -1,0 +1,26 @@
+z1 = zeros(50,100);
+o = ones(1,100);             %объект (щель)  
+z2 = zeros(50,100);
+M = cat(1,z1,o,z2);          %матрица
+%disp(M)
+
+Image = mat2gray(M,[0 1]);   %изображение из матрицы
+%disp(Image)
+
+%I = imread('');             %импорт изображения
+I = imnoise(Image,'speckle',0.1);        %зашумление
+%disp(I);
+%imshow(I)                   %если загруженное изображение 
+
+%h = imhist(M, 256);         %гистограмма
+%disp(h)
+
+B = sum(Image.*I);
+%disp(B);                    %получили одну строку под шумом, т.к. ненулевые значения только нв 1 строке изображения матрицы М
+
+
+Ii = mean(I);        %<I(x,y)>
+Bb = mean(B);        %<B(x,y)>
+BbIi = mean(I.*B);   %<B(x,y)*I(x,y)>
+G = BbIi - Bb*Ii;    %G(x,y)
+disp(G)
