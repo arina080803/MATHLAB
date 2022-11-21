@@ -1,0 +1,28 @@
+z1 = zeros(40,100);
+o = ones(20,100);        
+z2 = zeros(40,100);
+M = cat(1,z1,o,z2);         
+%imshow(M);
+%disp(size(M))
+
+sumI = 0;
+sumB = 0;
+mult = 0;
+N = 100;
+for i = 1:N
+    SM4 = ones(4);
+    I = randi([0 1], [25 25]);
+    I = kron(I, SM4);
+    %SM1 = ones(1);
+    %I = randi([0 1], [100 100]);
+    %I = kron(I, SM1);
+    B = sum(sum(M.*I));
+    sumI = sumI + I;
+    sumB = sumB + B;
+    mult = mult + B.*I;
+end 
+
+
+N = 100;
+GI = (sumI/N).*(sumB/N)-(mult/N);
+imshow(GI)
